@@ -3,7 +3,7 @@
 
 scripts para configurar un VPS
 
-- descargar repositorio e entrar a la carpeta
+- descargar repositorio y entrar a la carpeta
 ```bash
 git clone https://github.com/cdvelop/vps-setup && cd vps-setup
 ```
