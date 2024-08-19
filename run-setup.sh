@@ -1,7 +1,9 @@
 #!/bin/bash
 
+source messages.sh
+
 # Lista de scripts a ejecutar
-scripts=("update.sh")
+scripts=("user-setup.sh" "update-sys.sh")
 
 # Función para ejecutar un script y verificar su éxito
 run_scripts() {
@@ -28,17 +30,3 @@ done
 success "Todos los scripts se ejecutaron correctamente."
 
 
-# Función para mostrar un mensaje de éxito
-success() {
-  echo -e "\033[0;32m$1\033[0m" # color verde
-}
-
-# Función para mostrar un mensaje de advertencia
-warning() {
-  echo -e "\033[0;33m$1\033[0m" # color amarillo
-}
-
-# Función para mostrar un mensaje de error
-error() {
-  echo -e "\033[0;31mError: $1 $2\033[0m" #color rojo
-}
