@@ -12,3 +12,9 @@ warning() {
 error() {
   echo -e "\033[0;31mError: $1 $2\033[0m" #color rojo
 }
+
+# Función para salir del script en caso de error
+exit_on_error() {
+    error "$1"
+    exit 1
+}

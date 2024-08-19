@@ -18,11 +18,6 @@ else
     success "sudo ya está instalado."
 fi
 
-# Función para salir del script en caso de error
-exit_on_error() {
-    error "$1"
-    exit 1
-}
 
 # Crear un nuevo usuario no privilegiado en modo desatendido con contraseña
 warning "Creando el nuevo usuario: $NEW_USER"
@@ -76,8 +71,8 @@ if [[ "$SSH_CONFIG_CHECK" == "PasswordAuthentication no" ]] && [[ "$SSH_ROOT_LOG
     success "El usuario $NEW_USER se ha creado y agregado al grupo sudo."
     success "El acceso SSH para root ha sido deshabilitado y la autenticación por contraseña ha sido desactivada."
     success "Configuración SSH completada exitosamente."
-    warning "Recuerda usar la clave SSH para conectarte como '$NEW_USER' en este servidor."
-    
+    warning "Recuerda para conectarte a SSH ahora es:" 
+    echo -e "ssh $NEW_USER@$(hostname -I)"
     warning "CAMBIANDO AL NUEVO USUARIO"
     sudo -u $NEW_USER bash << EOF
     cd ~
