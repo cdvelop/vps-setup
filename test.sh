@@ -8,6 +8,7 @@ IP_VM="192.168.0.21"
 
 
 NEW_USER="juanito"
+NEW_USER_PASSWORD="123"
 
 # copiar solo los script a tmp o una carpeta en la maquina remota 
 find  ../vps-setup -name "*.sh" -exec scp {} root@$IP_VM:/tmp/ \;
@@ -15,6 +16,6 @@ find  ../vps-setup -name "*.sh" -exec scp {} root@$IP_VM:/tmp/ \;
 
 # ejecutar script en la maquina remota a través de ssh
 # primer argumento es el nombre de usuario
-ssh root@$IP_VM "cd /tmp && bash run-setup.sh $NEW_USER"
+ssh root@$IP_VM "cd /tmp && bash run-setup.sh $NEW_USER $NEW_USER_PASSWORD"
 
 

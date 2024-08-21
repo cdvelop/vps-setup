@@ -9,6 +9,11 @@ sudo useradd -m -s /bin/bash $NEW_USER || exit_on_error "No se pudo crear el usu
 # -m: Crea el directorio home del usuario
 # -s /bin/bash: Establece la shell por defecto del usuario como bash
 
+# Establecer la contraseña del nuevo usuario
+echo "$NEW_USER:$NEW_USER_PASSWORD" | sudo chpasswd || exit_on_error "No se pudo establecer la contraseña para $NEW_USER"
+# eliminar la variable de entorno NEW_USER_PASSWORD
+unset NEW_USER_PASSWORD
+
 # Agregar el nuevo usuario al grupo sudo para permisos de administrador
 warning "Agregando $NEW_USER al grupo sudo"
 sudo usermod -aG sudo $NEW_USER || exit_on_error "No se pudo agregar $NEW_USER al grupo sudo"

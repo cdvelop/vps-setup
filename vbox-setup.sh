@@ -1,7 +1,7 @@
 #!/bin/bash
 # Ejemplo de Script Bash para Automatizar Tareas en VirtualBox
-source env.sh
 source functions.sh
+source env.sh
 
 
 # Función para comprobar el estado de la máquina virtual y apagarla si está encendida

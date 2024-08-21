@@ -1,12 +1,12 @@
 
-
 # crear variable de entorno NEW_USER
-export NEW_USER="devuser"
-# setear la variable de entorno NEW_USER si $1 es distinto de ""
-if [ -n "$1" ]; then
-    export NEW_USER="$1"
-fi
+export NEW_USER="$1"
 
+# crear variable de entorno NEW_USER_PASSWORD
+export NEW_USER_PASSWORD="$2"
+
+# crear variable de entorno TIME_ZONE
+export TIME_ZONE="America/Santiago"
 
 # *** VARIABLES USO LOCAL DE DESARROLLO **
 

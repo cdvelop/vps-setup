@@ -1,11 +1,21 @@
 #!/bin/bash
 source functions.sh
+
+# exigir 2 parámetros de los contrario mostrar mensaje de error
+if [ -z "$1" ] || [ -z "$2" ]; then
+    error "Se requieren 2 parámetros nombre de usuario y contraseña"
+    exit 1
+fi
+
 source env.sh
 
-
-
 # Lista de scripts a ejecutar
-scripts=("sudo-install.sh" "user-setup.sh" "update-sys.sh")
+scripts=(
+    "sudo-install.sh" 
+    "time-setup.sh" 
+    "user-setup.sh" 
+    "update-sys.sh"
+)
 
 # Función para ejecutar un script y verificar su éxito
 run_scripts() {
@@ -21,6 +31,7 @@ run_scripts() {
         exit 1
     else
         success "$script ejecutado exitosamente."
+        echo -e "------------------------------------------------\n"
     fi
 }
 

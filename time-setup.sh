@@ -1,12 +1,20 @@
-echo "verificar configuración actual de fecha y zona horaria"
-timedatectl
+source functions.sh
 
-echo "listado zonas"
-timedatectl list-timezones
+warning "ACTUALIZANDO ZONA HORARIA A $TIME_ZONE"
 
-echo "Para filtrarlo un poco"
-timedatectl list-timezones | grep -i america
+sudo timedatectl set-timezone $TIME_ZONE || exit_on_error "No se pudo establecer la zona horaria a $TIME_ZONE"
 
+verify_timezone() {
+    local expected_timezone="$TIME_ZONE"
+    local current_timezone=$(timedatectl show --property=Timezone --value)
 
-echo "seleccionar zona horaria America/Santiago para el sistema"
-sudo timedatectl set-timezone America/Santiago
+    if [ "$current_timezone" = "$expected_timezone" ]; then
+        success "La zona horaria se ha cambiado correctamente a $expected_timezone"
+    else
+        error "La zona horaria no se ha cambiado. Zona horaria actual: $current_timezone"
+        return 1
+    fi
+}
+
+# Llamar a la función para verificar la zona horaria
+verify_timezone
