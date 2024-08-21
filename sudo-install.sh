@@ -1,5 +1,5 @@
 #!/bin/bash
-source env.sh
+source functions.sh
 
 # Instalar sudo si no está instalado
 if ! command -v sudo &> /dev/null

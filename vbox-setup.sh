@@ -1,14 +1,8 @@
 #!/bin/bash
 # Ejemplo de Script Bash para Automatizar Tareas en VirtualBox
+source env.sh
+source functions.sh
 
-# Nombre de la máquina virtual
-VM_NAME="Debian12"
-
-# Nombre de la instantánea a restaurar
-SNAPSHOT_NAME="update-sh"
-
-# Nombre de la Instantánea a eliminar
-SNAPSHOT_NAME_DELETE="config-user"
 
 # Función para comprobar el estado de la máquina virtual y apagarla si está encendida
 check_and_shutdown_vm() {
@@ -17,9 +11,9 @@ check_and_shutdown_vm() {
         VBoxManage controlvm "$VM_NAME" acpipowerbutton
 
         # Bucle para verificar el estado de la VM hasta que se apague
+        echo "Esperando apagado de la VM..."
         while VBoxManage list runningvms | grep -q "$VM_NAME"; do
-            echo "Esperando apagado de la VM..."
-            sleep 1  # Esperar 2 segundos antes de verificar nuevamente
+            sleep 1  # Esperar n segundos antes de verificar nuevamente
         done
 
         echo "La máquina virtual $VM_NAME se ha apagado correctamente."
@@ -52,7 +46,7 @@ echo "Restaurando a la instantánea $SNAPSHOT_NAME..."
 VBoxManage snapshot "$VM_NAME" restore "$SNAPSHOT_NAME"
            
            
-sleep 1  # Esperar 2 segundos antes de iniciar la máquina virtual
+sleep 1  # Esperar n segundos antes de iniciar la máquina virtual
 
 # Iniciar la máquina virtual
 echo "Iniciando $VM_NAME..."

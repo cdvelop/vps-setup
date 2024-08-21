@@ -1,11 +1,8 @@
 #!/bin/bash
-
+source functions.sh
 source env.sh
 
-# setear la variable de entorno NEW_USER="testing" si $1 es distinto de ""
-if [ -n "$1" ]; then
-    NEW_USER="$1"
-fi
+
 
 # Lista de scripts a ejecutar
 scripts=("sudo-install.sh" "user-setup.sh" "update-sys.sh")

@@ -1,23 +1,21 @@
 
-NEW_USER="devuser"
 
-# Función para mostrar un mensaje de éxito
-success() {
-  echo -e "\033[0;32m$1\033[0m" # color verde
-}
+# crear variable de entorno NEW_USER
+export NEW_USER="devuser"
+# setear la variable de entorno NEW_USER si $1 es distinto de ""
+if [ -n "$1" ]; then
+    export NEW_USER="$1"
+fi
 
-# Función para mostrar un mensaje de advertencia
-warning() {
-  echo -e "\033[0;33m$1\033[0m" # color amarillo
-}
 
-# Función para mostrar un mensaje de error
-error() {
-  echo -e "\033[0;31mError: $1 $2\033[0m" #color rojo
-}
+# *** VARIABLES USO LOCAL DE DESARROLLO **
 
-# Función para salir del script en caso de error
-exit_on_error() {
-    error "$1"
-    exit 1
-}
+# Nombre de la máquina virtual
+export VM_NAME="Debian12"
+# Nombre de la instantánea a restaurar
+export SNAPSHOT_NAME="update-sh"
+# Nombre de la Instantánea a eliminar
+export SNAPSHOT_NAME_DELETE="config-user"
+
+
+

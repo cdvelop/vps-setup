@@ -1,5 +1,5 @@
 #!/bin/bash
-source env.sh
+source functions.sh
 
 # Crear un nuevo usuario no privilegiado en modo desatendido sin contraseña
 warning "Creando el nuevo usuario: $NEW_USER"

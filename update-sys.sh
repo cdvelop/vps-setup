@@ -1,5 +1,5 @@
 #!/bin/bash
-source env.sh
+source functions.sh
 
 warning "ACTUALIZANDO SISTEMA"
 
