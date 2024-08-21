@@ -1,9 +1,14 @@
 #!/bin/bash
 
-source messages.sh
+source env.sh
+
+# setear la variable de entorno NEW_USER="testing" si $1 es distinto de ""
+if [ -n "$1" ]; then
+    NEW_USER="$1"
+fi
 
 # Lista de scripts a ejecutar
-scripts=("user-setup.sh" "update-sys.sh")
+scripts=("sudo-install.sh" "user-setup.sh" "update-sys.sh")
 
 # Función para ejecutar un script y verificar su éxito
 run_scripts() {

@@ -1,33 +1,13 @@
 #!/bin/bash
-source messages.sh
+source env.sh
 
-# Solicitar el nombre del nuevo usuario
-read -p "Introduce el nombre del nuevo usuario no privilegiado: " NEW_USER
-# Solicitar la contraseña para el nuevo usuario
-read -s -p "Introduce la contraseña para $NEW_USER: " NEW_USER_PASSWORD
-echo
-
-
-# Instalar sudo si no está instalado
-if ! command -v sudo &> /dev/null
-then
-    warning "sudo no está instalado. Instalando sudo..."
-    apt-get update
-    apt-get install -y sudo
-else
-    success "sudo ya está instalado."
-fi
-
-
-# Crear un nuevo usuario no privilegiado en modo desatendido con contraseña
+# Crear un nuevo usuario no privilegiado en modo desatendido sin contraseña
 warning "Creando el nuevo usuario: $NEW_USER"
 sudo useradd -m -s /bin/bash $NEW_USER || exit_on_error "No se pudo crear el usuario $NEW_USER"
 
-# Establecer la contraseña para el nuevo usuario
-echo "$NEW_USER:$NEW_USER_PASSWORD" | sudo chpasswd
-if [ $? -ne 0 ]; then
-    exit_on_error "No se pudo establecer la contraseña para $NEW_USER"
-fi
+# Explicación de las opciones:
+# -m: Crea el directorio home del usuario
+# -s /bin/bash: Establece la shell por defecto del usuario como bash
 
 # Agregar el nuevo usuario al grupo sudo para permisos de administrador
 warning "Agregando $NEW_USER al grupo sudo"

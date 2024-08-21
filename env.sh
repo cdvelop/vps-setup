@@ -1,3 +1,6 @@
+
+NEW_USER="devuser"
+
 # Función para mostrar un mensaje de éxito
 success() {
   echo -e "\033[0;32m$1\033[0m" # color verde
