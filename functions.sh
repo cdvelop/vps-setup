@@ -4,7 +4,7 @@ success() {
 }
 
 # Función para mostrar un mensaje de advertencia
-warning() {
+info() {
   echo -e "\033[0;33m$1\033[0m" # color amarillo
 }
 

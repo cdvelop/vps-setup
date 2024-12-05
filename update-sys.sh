@@ -1,7 +1,7 @@
 #!/bin/bash
 source functions.sh
 
-warning "ACTUALIZANDO SISTEMA"
+info "ACTUALIZANDO SISTEMA"
 
 
 sudo apt update -y && sudo apt upgrade -y

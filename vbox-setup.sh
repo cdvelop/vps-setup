@@ -4,10 +4,11 @@ source functions.sh
 source env.sh
 
 
+
 # Función para comprobar el estado de la máquina virtual y apagarla si está encendida
-check_and_shutdown_vm() {
+check_shutdown_vm() {
     if VBoxManage list runningvms | grep -q "$VM_NAME"; then
-        echo "La máquina virtual $VM_NAME está encendida. Apagando..."
+        info "La máquina virtual $VM_NAME está encendida. apagando..."
         VBoxManage controlvm "$VM_NAME" acpipowerbutton
 
         # Bucle para verificar el estado de la VM hasta que se apague
@@ -16,42 +17,38 @@ check_and_shutdown_vm() {
             sleep 1  # Esperar n segundos antes de verificar nuevamente
         done
 
-        echo "La máquina virtual $VM_NAME se ha apagado correctamente."
-    else
-        echo "La máquina virtual $VM_NAME ya está apagada."
+        success "La máquina virtual $VM_NAME apagada."
+    # else
     fi
 }
 
-# Llamar a la función
-check_and_shutdown_vm
+check_shutdown_vm
 
-# Función para eliminar una instantánea si existe
-delete_snapshot_if_exists() {
-    local vm_name="$1"
-    local snapshot_name="$2"
+# Función para restaurar la instantánea sin apagar la máquina virtual
+restore_snapshot() {
     
-    if VBoxManage snapshot "$vm_name" list | grep -q "$snapshot_name"; then
-        echo "Eliminando instantánea $snapshot_name..."
-        VBoxManage snapshot "$vm_name" delete "$snapshot_name"
-    else
-        echo "La instantánea $snapshot_name no existe. No se requiere eliminación."
-    fi
+    # if VBoxManage snapshot "$VM_NAME" list | grep -q "$SNAPSHOT_NAME_DELETE"; then
+        # info "Eliminando instantánea $SNAPSHOT_NAME_DELETE..."
+        # VBoxManage snapshot "$VM_NAME" delete "$SNAPSHOT_NAME_DELETE"
+    # else
+        # echo "La instantánea $SNAPSHOT_NAME_DELETE no existe. No se requiere eliminación."
+    # fi
+
+    # Restaurar la instantánea
+    info "Restaurando a la instantánea $SNAPSHOT_NAME..."
+    VBoxManage snapshot "$VM_NAME" restore "$SNAPSHOT_NAME"
 }
 
-# Llamar a la función para eliminar la instantánea
-delete_snapshot_if_exists "$VM_NAME" "$SNAPSHOT_NAME_DELETE"
-
-# Restaurar la instantánea
-echo "Restaurando a la instantánea $SNAPSHOT_NAME..."
-VBoxManage snapshot "$VM_NAME" restore "$SNAPSHOT_NAME"
+# sleep 1  # Esperar n segundos después de apagar   
+restore_snapshot       
+sleep 1  # Esperar n segundos después de restaurar    
            
-           
-sleep 1  # Esperar n segundos antes de iniciar la máquina virtual
+# Iniciar la máquina virtual sin interfaz gráfica
+info "Iniciando $VM_NAME en modo headless..."
+VBoxManage startvm "$VM_NAME" --type headless
 
-# Iniciar la máquina virtual
-echo "Iniciando $VM_NAME..."
-VBoxManage startvm "$VM_NAME" --type gui
+# VBoxManage startvm "$VM_NAME" --type gui
 
-echo "Operaciones completadas."
-
+success "maquina virtual $VM_NAME Iniciada."
+echo -e "------------------------------------------------\n"
 exit 0
